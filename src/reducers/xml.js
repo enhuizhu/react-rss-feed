@@ -1,6 +1,6 @@
 import events from '../constants/events';
 
-const defaultState = '';
+const defaultState = {};
 
 const xml = (state = defaultState, action = {}) => {
   switch (action.type) {

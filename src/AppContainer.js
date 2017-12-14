@@ -6,13 +6,22 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getFeed: (feedUrl) => {
       dispatch(actions.getFeed(feedUrl));
+    },
+
+    addUrl: (feedUrl) => {
+      dispatch(actions.addUrl(feedUrl));
+    },
+    
+    removeLink: (index) => {
+      dispatch(actions.deleteUrl(index));
     }
   };
 };
 
 const mapStateToProps = (state) => {
   return {
-    feedContent: state.xml
+    feedContent: state.xml,
+    urls: state.urls,
   }
 };
 

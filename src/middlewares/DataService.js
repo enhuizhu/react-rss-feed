@@ -1,8 +1,7 @@
-'use strict';
-
 import events from '../constants/events';
 import ApiService from '../services/ApiService';
-import {getFeed,reciveFeed} from '../actions/';
+import { parseString } from 'xml2js';
+import { reciveFeed } from '../actions/';
 
 const DataService = (store) => (next) => (action) => {
   /*
@@ -13,8 +12,19 @@ const DataService = (store) => (next) => (action) => {
   switch (action.type) {
     case events.GET_FEED:
       ApiService.getFeed(action.payload).then(response => {
-        console.log('response', response);
+        parseString(response.data, (err, result) => {
+          if (err) {
+            console.error(err);
+            return ;
+          }
+
+          store.dispatch(reciveFeed(result));
+        });        
       });
+
+      break;
+    default: 
+     return ;
   };
 };
 
